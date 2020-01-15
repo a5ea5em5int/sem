@@ -17,7 +17,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT id, name, countrycode "
+                    "SELECT id, name, countrycode ,Population"
                             + "FROM city "
                             + "WHERE id = " + ID;
             // Execute SQL statement
