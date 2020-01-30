@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
@@ -17,9 +18,9 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT id, name, countrycode ,Population"
+                    "SELECT ID, Name, CountryCode ,Population"
                             + "FROM city "
-                            + "WHERE id = " + ID;
+                            + "WHERE ID = " + ID;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -40,7 +41,7 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get city details id code problem");
 
         }
     }
@@ -65,7 +66,7 @@ public class App
             System.exit(-1);
         }
 
-        int retries = 10;
+        int retries = 100;
         for (int i = 0; i < retries; ++i)
         {
             System.out.println("Connecting to database...");
@@ -89,7 +90,6 @@ public class App
             }
         }
     }
-
     /**
      * Disconnect from the MySQL database.
      */
@@ -109,6 +109,45 @@ public class App
         }
     }
 
+    public   ArrayList<Country> getCountriesByPopulation()
+    {
+        ArrayList<Country> countries=new ArrayList<Country>();
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "select code, name, population, continent ,region from country order by population desc limit 10";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while(rset.next())
+            { System.out.println(rset.getString(1));
+                Country ctry = new Country();
+                ctry.setCode(rset.getString("code"));
+                ctry.setName( rset.getString("name"));
+                ctry.setContinent(rset.getString("continent"));
+                ctry.setPopulation(rset.getInt("population"));
+                ctry.setRegion(rset.getString("region"));
+                //System.out.println("************City Information**************");
+
+                countries.add(ctry);
+            }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage()+"\n"+e.getStackTrace()+"\n"+e.getLocalizedMessage());
+            System.out.println("Failed to get country details");
+            return countries;
+        }
+
+
+    }
+
     public static void main(String[] args)
     {
         // Create new Application
@@ -116,8 +155,19 @@ public class App
 
         // Connect to database
         a.connect();
-        a.getCity("3716");
+        //a.getCity("3718");
+        System.out.println("Hihihhihihihih");
+        ArrayList<Country> countries =new ArrayList<Country>();
+        countries=a.getCountriesByPopulation();
 
+        for (Country c:countries){
+
+            System.out.printf("%s  %s %20d",c.getName(),c.getContinent(),c.getPopulation());
+            System.out.println();
+
+
+    }
+       // System.out.println(countries);
         // Disconnect from database
         a.disconnect();
 
