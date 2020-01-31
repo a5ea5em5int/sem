@@ -11,7 +11,7 @@ public class App
 
 
     }
-    public void getCity(String ID)
+    public City getCity(String ID)
     {
         try
         {
@@ -34,16 +34,17 @@ public class App
 
                 System.out.println("City Information");
                 System.out.println(city);
-
+            return city;
             }
             else
                 System.out.println("invalid id code");
+            return null;
         }
         catch (Exception e)
         {   log.info(e.getMessage());
            // System.out.println(e.getMessage());
             System.out.println("Failed to get city details id code problem");
-
+            return null;
         }
     }
     /**
@@ -54,7 +55,7 @@ public class App
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public void connect(String location)
     {
         try
         {
@@ -76,7 +77,7 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://localhost:33060/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://+location+/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -155,12 +156,12 @@ public class App
         App a = new App();
 
         // Connect to database
-        a.connect();
+        a.connect("localhost:33060");
         //a.getCity("3718");
         System.out.println("Hihihhihihihih");
         ArrayList<Country> countries =new ArrayList<Country>();
         countries=a.getCountriesByPopulation();
-
+        a.getCity("1");
         for (Country c:countries){
 
             System.out.printf("%s  %s %20d",c.getName(),c.getContinent(),c.getPopulation());
