@@ -156,7 +156,7 @@ public class App
         App a = new App();
 
         // Connect to database
-        a.connect("localhost:33060");
+        a.connect("db:3306");
         //a.getCity("3718");
         System.out.println("Hihihhihihihih");
         ArrayList<Country> countries =new ArrayList<Country>();
