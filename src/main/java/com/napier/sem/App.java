@@ -2,9 +2,10 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class App
-{
+{ Logger log=Logger.getLogger("App");
     Connection con = null;
     public void getPopbyCountries(){
 
@@ -39,8 +40,8 @@ public class App
                 System.out.println("invalid id code");
         }
         catch (Exception e)
-        {
-            System.out.println(e.getMessage());
+        {   log.info(e.getMessage());
+           // System.out.println(e.getMessage());
             System.out.println("Failed to get city details id code problem");
 
         }
