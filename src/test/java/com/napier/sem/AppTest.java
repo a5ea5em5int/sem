@@ -22,6 +22,7 @@ public class AppTest
     @Test
     void printSalariesTestNull()
     {
-        //app.printSalaries(null);
+       City c=new City();
+       c=app.getCity(null);
     }
 }

@@ -18,7 +18,7 @@ public class AppIntegrationTest
     static void init()
     {
         app = new App();
-        app.connect("localhost:33060");
+        app.connect();
     }
 
     @Test
@@ -27,7 +27,7 @@ public class AppIntegrationTest
        City c=new City();
        c= app.getCity("2");
        assertEquals(c.getName(),"Qandahar");
-       assertEquals(c.getCountryCode(),"2");
+       assertEquals(c.getId(),"2");
 
     }
 }
